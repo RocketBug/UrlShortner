@@ -1,13 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>UrlShortner</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>UrlShortner</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      .ascii-art {
+          font-family: monospace;
+          white-space: pre;
+          text-align: center;
+          font-size: calc(0.3vw + 0.3vh + 0.5vmin);
+          line-height: 1.2;
+          margin: 1rem auto;
+          max-width: 100%;
+          overflow-x: hidden;
+          display: flex;
+          justify-content: center;
+          padding: 0 1rem;
+      }
+
+      @media (max-width: 768px) {
+          .ascii-art {
+              font-size: 0.4em;
+          }
+      }
+
+      @media (max-width: 480px) {
+          .ascii-art {
+              font-size: 0.35em;
+          }
+      }
+  </style>
+  </head>
+  <body class="mat-typography">
+    <div class="ascii-art">
+      ________  ________  ________  ___  __    _______  _________  ___  ___  ________  ___          
+      |\   __  \|\   __  \|\   ____\|\  \|\  \ |\  ___ \|\___   ___\\  \|\  \|\   __  \|\  \         
+      \ \  \|\  \ \  \|\  \ \  \___|\ \  \/  /|\ \   __/\|___ \  \_\ \  \\\  \ \  \|\  \ \  \        
+       \ \   ____\ \  \\\  \ \  \    \ \   ___  \ \  \_|/__  \ \  \ \ \  \\\  \ \   _  _\ \  \       
+        \ \  \___|\ \  \\\  \ \  \____\ \  \\ \  \ \  \_|\ \  \ \  \ \ \  \\\  \ \  \\  \\ \  \____  
+         \ \__\    \ \_______\ \_______\ \__\\ \__\ \_______\  \ \__\ \ \_______\ \__\\ _\\ \_______\
+          \|__|     \|_______|\|_______|\|__| \|__|\|_______|   \|__|  \|_______|\|__|\|__|\|_______|
+          </div>
+    <app-root></app-root>
+  </body>
 </html>

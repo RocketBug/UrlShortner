@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f1e3; /* Pastel background color for container */
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Center the ASCII art and make it responsive */
+pre {
+  margin: 1rem 0;
+  font-size: 0.8em; /* Reduce size of ASCII art */
+  white-space: pre-wrap; /* Allow wrapping for smaller screens */
+  text-align: center;
+}

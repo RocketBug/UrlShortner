@@ -1,0 +1,30 @@
+<div class="centered-container">
+  <mat-card appearance="outlined">
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="responsive-width">
+        <mat-label>Paster your URL here</mat-label>
+        <input
+          matInput
+          placeholder="Paster your URL here"
+          [formControl]="userUrl"
+        />
+      </mat-form-field>
+      <div class="button-container">
+        @if(!urlGenerated){
+        <button mat-stroked-button (click)="shortenUrl()">Shorten url</button>
+        } @else{
+        <button mat-stroked-button (click)="clear()">Clear</button>
+        }
+      </div>
+      @if(urlGenerated){
+      <mat-divider></mat-divider>
+      <div>
+        <button mat-flat-button (click)="copyToClipBoard()">
+          <mat-icon>link</mat-icon>
+          This is a short url
+        </button>
+      </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
