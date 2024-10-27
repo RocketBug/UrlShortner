@@ -1,0 +1,10 @@
+.centered-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Center everything horizontally */
+  width: 90%; /* Use percentage instead of fixed width */
+  max-width: 800px; /* Add maximum width */
+  margin: 2rem auto; /* Use margin instead of fixed height */
+  padding: 1rem; /* Use consistent padding */
+}

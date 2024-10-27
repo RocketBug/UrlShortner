@@ -5,7 +5,7 @@
         <mat-label>Paster your URL here</mat-label>
         <input
           matInput
-          placeholder="Paster your URL here"
+          placeholder="Paste your URL here"
           [formControl]="userUrl"
         />
       </mat-form-field>
@@ -16,12 +16,12 @@
         <button mat-stroked-button (click)="clear()">Clear</button>
         }
       </div>
-      @if(urlGenerated){
+      @if(urlGenerated && shortenedUrl){
       <mat-divider></mat-divider>
       <div>
         <button mat-flat-button (click)="copyToClipBoard()">
           <mat-icon>link</mat-icon>
-          This is a short url
+          {{ shortenedUrl }}
         </button>
       </div>
       }

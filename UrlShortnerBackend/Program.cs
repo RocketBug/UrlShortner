@@ -1,7 +1,27 @@
+using Microsoft.EntityFrameworkCore;
+using UrlShortnerBackend.Data;
+using UrlShortnerBackend.Models;
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                  policy =>
+                  {
+                      policy.AllowAnyOrigin()
+                      .AllowAnyMethod()
+                      .AllowAnyHeader();
+                  });
+});
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(connectionString));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -14,31 +34,55 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
 
-var summaries = new[]
+app.MapPost("api/shorten", (UserUrlDto userUrlDto, AppDbContext db) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+    var keyIsUnique = false;
+    string urlKey = string.Empty;
+    if (!Uri.IsWellFormedUriString(userUrlDto.Url, UriKind.Absolute))
+    {
+        return Results.BadRequest("Oops looks like you didn't enter a valid url.");
+    }
+    while (!keyIsUnique)
+    {
+        urlKey = GenerateUrlKey();
+        keyIsUnique = !db.UrlMapping.Any(x => x.RedirectKey == urlKey);
+    }
+    var urlMapping = new UrlMapping
+    {
+        DateCreated = DateTime.Now,
+        DateExpiry = DateTime.Now.AddMinutes(5),
+        RedirectKey = urlKey,
+        Url = userUrlDto.Url,
+    };
+    db.UrlMapping.Add(urlMapping);
+    db.SaveChanges();
+    return Results.Created("api/shorten", urlMapping);
 })
-.WithName("GetWeatherForecast")
+.WithOpenApi();
+
+
+app.MapGet("api/redirect-url/{key}", (string key, AppDbContext db) =>
+{
+    var urlMapping = db.UrlMapping.SingleOrDefault(x => x.RedirectKey == key);
+    if (urlMapping == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(urlMapping);
+})
 .WithOpenApi();
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+string GenerateUrlKey()
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    Random random = new();
+    int length = 6;
+    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    var urlKey = new string(Enumerable.Repeat(chars, length)
+        .Select(s => s[random.Next(s.Length)]).ToArray());
+    return urlKey;
 }

@@ -3,6 +3,12 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "C#: UrlShortnerBackend Debug",
+      "type": "dotnet",
+      "request": "launch",
+      "projectPath": "${workspaceFolder}/UrlShortnerBackend/UrlShortnerBackend.csproj"
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",
