@@ -5,6 +5,6 @@ namespace UrlShortnerBackend.Data
 {
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
-        public DbSet<UrlMapping> UrlMapping { get; set; }
+        public required DbSet<UrlMapping> UrlMapping { get; set; }
     }
 }
