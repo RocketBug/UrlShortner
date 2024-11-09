@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  dotnet-api:
+    build:
+      context: ./UrlShortnerBackend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../../pocket-url.db:/app/Data/pocket-url.db:rw
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Data Source=/app/Data/pocket-url.db;
+  angular-app:
+    build:
+      context: ./
+    ports:
+      - "4200:80"
+    depends_on:
+      - dotnet-api
