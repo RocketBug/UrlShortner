@@ -17,6 +17,7 @@ builder.Services.AddCors(options =>
                       .AllowAnyHeader();
                   });
 });
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -33,6 +34,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseStaticFiles(); // 🔴 here it is
+app.UseRouting(); // 🔴 here it is
 
 app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
@@ -74,6 +77,13 @@ app.MapGet("api/redirect-url/{key}", (string key, AppDbContext db) =>
     return Results.Ok(urlMapping);
 })
 .WithOpenApi();
+
+app.MapGet("api/hello-world", () =>
+{
+    return Results.Ok("Hello");
+})
+.WithOpenApi();
+
 
 app.Run();
 
