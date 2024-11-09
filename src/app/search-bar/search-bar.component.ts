@@ -9,7 +9,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ShortnerService } from '../shortner.service';
-import { UrlKey } from '../interface/url-key';
+import { QRCodeModule } from 'angularx-qrcode';
 import { UrlMapping } from '../interface/url-mapping';
 
 @Component({
@@ -23,6 +23,7 @@ import { UrlMapping } from '../interface/url-mapping';
     MatIconModule,
     MatDividerModule,
     ReactiveFormsModule,
+    QRCodeModule,
   ],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css',

@@ -6,7 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-root',
   standalone: true,
-
   imports: [RouterOutlet, SearchBarComponent, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

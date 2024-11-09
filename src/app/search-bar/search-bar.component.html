@@ -18,12 +18,22 @@
       </div>
       @if(urlGenerated && shortenedUrl){
       <mat-divider></mat-divider>
-      <div>
-        <button mat-flat-button (click)="copyToClipBoard()">
-          <mat-icon>link</mat-icon>
-          {{ shortenedUrl }}
-        </button>
+      <div style="display: flex; flex-direction: column; align-items: center">
+        <div>
+          <button mat-flat-button (click)="copyToClipBoard()">
+            <mat-icon>link</mat-icon>
+            {{ shortenedUrl }}
+          </button>
+        </div>
+        <div>
+          <qrcode
+            [qrdata]="shortenedUrl"
+            [width]="256"
+            [errorCorrectionLevel]="'M'"
+          ></qrcode>
+        </div>
       </div>
+      <p>Note: All urls will expire in </p>
       }
     </mat-card-content>
   </mat-card>
