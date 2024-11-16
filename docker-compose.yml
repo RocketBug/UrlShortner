@@ -6,7 +6,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ../../pocket-url.db:/app/Data/pocket-url.db:rw
+      - ../pocket-url.db:/app/Data/pocket-url.db:rw
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Data Source=/app/Data/pocket-url.db;
