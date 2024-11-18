@@ -17,7 +17,7 @@ RUN npm run build --prod
 # Use Nginx to serve the Angular app
 FROM nginx:alpine
 COPY --from=build /app/dist/url-shortner/browser /usr/share/nginx/html
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose a different port (8080 instead of 80)
 EXPOSE 80
