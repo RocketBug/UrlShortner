@@ -1,18 +1,22 @@
 # Use Node.js to build the Angular app
 FROM node:18 AS build
 
-# Set working directory
+# Install Angular CLI globally
+RUN npm install -g @angular/cli@18.0.0
+
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy package files to install dependencies
 COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build -- --configuration production
 
-# Copy the rest of the app and build
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application files
 COPY . .
-RUN npm run build --prod
+
+# Build the Angular app for production
+RUN ng build --configuration=production
 
 # Use Nginx to serve the Angular app
 FROM nginx:alpine
