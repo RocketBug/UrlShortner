@@ -17,6 +17,6 @@ services:
     depends_on:
       - dotnet-api
     ports:
-      - "80:80"
+      - "8081:80"
     expose:
       - 80
